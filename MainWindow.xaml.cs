@@ -20,9 +20,16 @@ namespace WpfMailSender
     /// </summary>
     public partial class MainWindow : Window
     {
+        EmailSendServiceClass emailSendService = new EmailSendServiceClass();
         public MainWindow()
         {
             InitializeComponent();
+            Server.Text = AppConfigClass.ServerName;
+        }
+
+        private void Send_Click(object sender, RoutedEventArgs e)
+        {
+            emailSendService.Send(Sender.Text, Reciever.Text, Subject.Text, MessageBody.Document.ToString(), Server.Text, AppConfigClass.ServerPort, Password.Password);
         }
     }
 }

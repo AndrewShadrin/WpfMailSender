@@ -5,8 +5,72 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfMailSender"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="Mail sender" Height="450" Width="800">
+    <DockPanel>
+        <Menu Height="25" DockPanel.Dock="Top" VerticalAlignment="Top">
+            <MenuItem Header="Файл"></MenuItem>
+            <MenuItem Header="Помощь"></MenuItem>
+        </Menu>
+        <TabControl>
+            <TabItem Header="Формирование группы рассылки">
+                <DockPanel>
+                    <Grid DockPanel.Dock="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <DockPanel Grid.Column="0" Margin="3">
+                            <DockPanel Height="25" VerticalAlignment="Top" DockPanel.Dock="Top">
+                                <Label Margin="2" Foreground="Black" Width="75">Сервер</Label>
+                                <TextBox Name="Server" Margin="2"></TextBox>
+                            </DockPanel>
+                            <DockPanel Height="25" VerticalAlignment="Top" DockPanel.Dock="Top">
+                                <Label Margin="2" Foreground="Black" Width="75">Отправитель</Label>
+                                <TextBox Name="Sender" Margin="2"></TextBox>
+                            </DockPanel>
+                            <DockPanel Height="25" DockPanel.Dock="Top" VerticalAlignment="Top">
+                                <Label Margin="2" Foreground="Black" Width="75">Пароль</Label>
+                                <PasswordBox Name="Password" DockPanel.Dock="Top" VerticalAlignment="Top" Margin="2"></PasswordBox>
+                            </DockPanel>
+                        </DockPanel>
+                            <DockPanel Height="25" DockPanel.Dock="Top" Grid.Column="0" Grid.Row="1" Margin="3">
+                                <Button Name="Send" Click="Send_Click">Отправить</Button>
+                            </DockPanel>
+                           <DockPanel Height="25" DockPanel.Dock="Top" Grid.Column="1" Grid.Row="1" Margin="3">
+                                <Button Name="AddReciever">Добавить получателя</Button>
+                            </DockPanel>
+                        <DockPanel Grid.Column="1" Margin="3">
+                            <DockPanel Height="25" VerticalAlignment="Top" DockPanel.Dock="Top">
+                                <Label Margin="2" Foreground="Black" Width="75">Получатель</Label>
+                                <TextBox Name="Reciever" Margin="2"></TextBox>
+                            </DockPanel>
+
+                        </DockPanel>
+                    </Grid>
+                    <ListView Name="RecieverList" Margin="3">
+                        
+                    </ListView>
+                </DockPanel>
+            </TabItem>
+            <TabItem Header="Планировщик">
+                
+            </TabItem>
+            <TabItem Header="Редактор писем">
+                <DockPanel>
+                    <DockPanel DockPanel.Dock="Top" Margin="2">
+                        <Label Margin="0,0,5,0">Тема:</Label>
+                        <TextBox Name="Subject"/>
+                    </DockPanel>
+                    <RichTextBox Name="MessageBody" Block.LineHeight="10" Margin="2"></RichTextBox>
+                </DockPanel>
+            </TabItem>
+            <TabItem Header="Статистика">
+                Разрабатываться не будет
+            </TabItem>
+        </TabControl>
+    </DockPanel>
 </Window>
