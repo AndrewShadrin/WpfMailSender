@@ -14,18 +14,18 @@ namespace WpfMailSender
         {
             try
             {
-                using (var mm = new MailMessage(sender, reciever))
+                using (var mail = new MailMessage(sender, reciever))
                 {
-                    mm.Subject = subject;
-                    mm.Body = mailbody;
-                    mm.IsBodyHtml = false;
+                    mail.Subject = subject;
+                    mail.Body = mailbody;
+                    mail.IsBodyHtml = false;
                     using (var sc = new SmtpClient(server, port))
                     {
                         sc.EnableSsl = true;
                         sc.DeliveryMethod = SmtpDeliveryMethod.Network;
                         sc.UseDefaultCredentials = false;
                         sc.Credentials = new NetworkCredential(sender, password);
-                        sc.Send(mm);
+                        sc.Send(mail);
                     }
                 }
             }
