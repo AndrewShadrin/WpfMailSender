@@ -29,7 +29,15 @@ namespace WpfMailSender
 
         private void Send_Click(object sender, RoutedEventArgs e)
         {
-            emailSendService.Send(Sender.Text, Reciever.Text, Subject.Text, MessageBody.Document.ToString(), Server.Text, AppConfigClass.ServerPort, Password.Password);
+            try
+            {
+                emailSendService.Send(Sender.Text, Reciever.Text, Subject.Text, MessageBody.Document.ToString(), Server.Text, AppConfigClass.ServerPort, Password.Password);
+            }
+            catch (Exception ex)
+            {
+                MessageWindow windowMessage = new MessageWindow(ex.Message);
+                windowMessage.Show();
+            }
         }
     }
 }
