@@ -5,6 +5,14 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfMailSender", "WpfMailSender.csproj", "{897C8107-FC7B-4F22-84AF-87B4C6CC9DC0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TabSwitcherControl", "..\TabSwitcherControl\TabSwitcherControl.csproj", "{EF8F9532-C6BC-4D62-83F0-BD233FEA7A1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodePasswordDLL", "..\CodePasswordDLL\CodePasswordDLL.csproj", "{B9609749-5281-4149-BDE1-444EE6410CFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSend", "..\EmailSend\EmailSend.csproj", "{A04CA2E5-185C-4E8D-86F5-CB590A929D49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelectToolBarControl", "..\SelectToolBarControl\SelectToolBarControl.csproj", "{01015E68-8D4C-41D1-8486-A68FF7A74259}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +23,22 @@ Global
 		{897C8107-FC7B-4F22-84AF-87B4C6CC9DC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{897C8107-FC7B-4F22-84AF-87B4C6CC9DC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{897C8107-FC7B-4F22-84AF-87B4C6CC9DC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF8F9532-C6BC-4D62-83F0-BD233FEA7A1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF8F9532-C6BC-4D62-83F0-BD233FEA7A1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF8F9532-C6BC-4D62-83F0-BD233FEA7A1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF8F9532-C6BC-4D62-83F0-BD233FEA7A1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9609749-5281-4149-BDE1-444EE6410CFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9609749-5281-4149-BDE1-444EE6410CFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9609749-5281-4149-BDE1-444EE6410CFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9609749-5281-4149-BDE1-444EE6410CFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A04CA2E5-185C-4E8D-86F5-CB590A929D49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A04CA2E5-185C-4E8D-86F5-CB590A929D49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A04CA2E5-185C-4E8D-86F5-CB590A929D49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A04CA2E5-185C-4E8D-86F5-CB590A929D49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01015E68-8D4C-41D1-8486-A68FF7A74259}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01015E68-8D4C-41D1-8486-A68FF7A74259}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01015E68-8D4C-41D1-8486-A68FF7A74259}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01015E68-8D4C-41D1-8486-A68FF7A74259}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

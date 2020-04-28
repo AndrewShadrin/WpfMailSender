@@ -1,76 +1,121 @@
-﻿<Window x:Class="WpfMailSender.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfMailSender"
+        xmlns:TabSwitcherControl="clr-namespace:TabSwitcherControl;assembly=TabSwitcherControl" 
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:selecttoolbarcontrol="clr-namespace:SelectToolBarControl;assembly=SelectToolBarControl"
+    x:Class="WpfMailSender.MainWindow"
         mc:Ignorable="d"
+        Icon="Images/Letter.png"
         Title="Mail sender" Height="450" Width="800">
     <DockPanel>
         <Menu Height="25" DockPanel.Dock="Top" VerticalAlignment="Top">
-            <MenuItem Header="Файл"></MenuItem>
-            <MenuItem Header="Помощь"></MenuItem>
+            <MenuItem Header="Файл">
+                <MenuItem Header="Выход" HorizontalAlignment="Left" Width="88" Click="MenuItem_Click"/>
+            </MenuItem>
+            <MenuItem Header="Помощь"/>
         </Menu>
-        <TabControl>
+        <TabControl x:Name="tabControl" DockPanel.Dock="Top">
             <TabItem Header="Формирование группы рассылки">
                 <DockPanel>
+                    <ToolBarTray Height="65" DockPanel.Dock="Top">
+                        <ToolBar x:Name="tbSender" Height="30" Width="500">
+                            <Label x:Name="lSender" Height="25" Width="130" VerticalContentAlignment="Center" Content="Выбрать отправителя"/>
+                            <ComboBox x:Name="cbSenderSelect" Width="269" Height="25" ToolTip="Выбрать email отправителя"/>
+                            <Button x:Name="btnAddSender" ToolTip="Добавить" Width="25" Height="25" MinWidth="24" MinHeight="25">
+                                <Image Source="Images/add.png"/>
+                            </Button>
+                            <Button x:Name="btnEditSender" ToolTip="Редактировать" Width="25" Height="25" MinWidth="24" MinHeight="25">
+                                <Image Source="Images/edit.png"/>
+                            </Button>
+                            <Button x:Name="btnDeleteSender" ToolTip="Удалить" Width="25" Height="25" MinWidth="24" MinHeight="25">
+                                <Image Source="Images/delete.png"/>
+                            </Button>
+                        </ToolBar>
+                        <ToolBar>
+                            <TabSwitcherControl:TabSwitcher x:Name="tscTabSwitcher" Height="25" Width="228" IsHidebtnPrevious="True" btnNextClick="tscTabSwitcher_btnNextClick"/>
+                        </ToolBar>
+                        <ToolBar x:Name="tbServer" Height="30" Width="500">
+                            <Label x:Name="lServer" Height="25" Width="130" VerticalContentAlignment="Center" Content="Выбрать сервер"/>
+                            <ComboBox x:Name="cbServerSelect" Width="269" Height="25" ToolTip="Выбрать сервер отправителя" SelectedItem="0"/>
+                            <Button x:Name="btnAddServer" ToolTip="Добавить" Width="25" Height="25" MinWidth="24" MinHeight="25">
+                                <Image Source="Images/add.png"/>
+                            </Button>
+                            <Button x:Name="btnEditServer" ToolTip="Редактировать" Width="25" Height="25" MinWidth="24" MinHeight="25">
+                                <Image Source="Images/edit.png"/>
+                            </Button>
+                            <Button x:Name="btnDeleteServer" ToolTip="Удалить" Width="25" Height="25" MinWidth="24" MinHeight="25">
+                                <Image Source="Images/delete.png"/>
+                            </Button>
+                        </ToolBar>
+                    </ToolBarTray>
                     <Grid DockPanel.Dock="Top">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <DockPanel Grid.Column="0" Margin="3">
-                            <DockPanel Height="25" VerticalAlignment="Top" DockPanel.Dock="Top">
-                                <Label Margin="2" Foreground="Black" Width="75">Сервер</Label>
-                                <TextBox Name="Server" Margin="2"></TextBox>
+                            <!--<DockPanel Height="25" VerticalAlignment="Top" DockPanel.Dock="Top">
+                                <Label Margin="2" Foreground="Black" Width="75" Content="Сервер"/>
+                                <TextBox x:Name="Server" Margin="2"/>
                             </DockPanel>
                             <DockPanel Height="25" VerticalAlignment="Top" DockPanel.Dock="Top">
-                                <Label Margin="2" Foreground="Black" Width="75">Отправитель</Label>
-                                <TextBox Name="Sender" Margin="2"></TextBox>
-                            </DockPanel>
+                                <Label Margin="2" Foreground="Black" Width="75" Content="Отправитель"/>
+                                <TextBox x:Name="Sender" Margin="2"/>
+                            </DockPanel>-->
                             <DockPanel Height="25" DockPanel.Dock="Top" VerticalAlignment="Top">
-                                <Label Margin="2" Foreground="Black" Width="75">Пароль</Label>
-                                <PasswordBox Name="Password" DockPanel.Dock="Top" VerticalAlignment="Top" Margin="2"></PasswordBox>
+                                <Label Margin="2" Foreground="Black" Width="75" Content="Пароль"/>
+                                <PasswordBox x:Name="pbPassword" DockPanel.Dock="Top" VerticalAlignment="Top" Margin="2"/>
                             </DockPanel>
                         </DockPanel>
-                            <DockPanel Height="25" DockPanel.Dock="Top" Grid.Column="0" Grid.Row="1" Margin="3">
-                                <Button Name="Send" Click="Send_Click">Отправить</Button>
-                            </DockPanel>
-                           <DockPanel Height="25" DockPanel.Dock="Top" Grid.Column="1" Grid.Row="1" Margin="3">
-                                <Button Name="AddReciever">Добавить получателя</Button>
-                            </DockPanel>
+                        <DockPanel Height="25" DockPanel.Dock="Top" Grid.Column="1" Grid.Row="1" Margin="3">
+                            <Button x:Name="AddReciever" Content="Добавить получателя"/>
+                        </DockPanel>
                         <DockPanel Grid.Column="1" Margin="3">
                             <DockPanel Height="25" VerticalAlignment="Top" DockPanel.Dock="Top">
-                                <Label Margin="2" Foreground="Black" Width="75">Получатель</Label>
-                                <TextBox Name="Reciever" Margin="2"></TextBox>
+                                <Label Margin="2" Foreground="Black" Width="75" Content="Получатель"/>
+                                <TextBox x:Name="Reciever" Margin="2"/>
                             </DockPanel>
 
                         </DockPanel>
                     </Grid>
-                    <ListView Name="RecieverList" Margin="3">
-                        
-                    </ListView>
+                    <DataGrid x:Name="dgRecievers" IsReadOnly="True">
+                    </DataGrid>
+                    <selecttoolbarcontrol:SelectToolBar x:Name="STB" Height="237" VerticalAlignment="Top" Width="449"/>
                 </DockPanel>
             </TabItem>
             <TabItem Header="Планировщик">
-                
+                <DockPanel>
+                    <Calendar x:Name="cldSchedulDateTimes" HorizontalAlignment="Left" VerticalAlignment="Top" DockPanel.Dock="Top"/>
+                    <xctk:TimePicker x:Name="tbTimePicker" DockPanel.Dock="Top" Width="179" HorizontalAlignment="Left"/>
+                    <DockPanel Height="25" Grid.Column="0" Grid.Row="1" Margin="3" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                        <Button x:Name="btnSend" Content="Отправить запланировано" Width="150" Click="btnSend_Click"/>
+                        <Button x:Name="btnSendAtOnce" Click="Send_Click" Width="150">
+                            <StackPanel Orientation="Horizontal" Height="23">
+                                <Image Source="Images/Letter.png" Width="23"/>
+                                <TextBlock VerticalAlignment="Center" Height="20" Margin="3,1,0,0">Отправить сразу</TextBlock>
+                            </StackPanel>
+                        </Button>
+                    </DockPanel>
+                </DockPanel>
             </TabItem>
             <TabItem Header="Редактор писем">
                 <DockPanel>
                     <DockPanel DockPanel.Dock="Top" Margin="2">
-                        <Label Margin="0,0,5,0">Тема:</Label>
-                        <TextBox Name="Subject"/>
+                        <Label Margin="0,0,5,0" Content="Тема:"/>
+                        <TextBox x:Name="Subject"/>
                     </DockPanel>
-                    <RichTextBox Name="MessageBody" Block.LineHeight="10" Margin="2"></RichTextBox>
+                    <RichTextBox x:Name="MessageBody" Block.LineHeight="10" Margin="2"/>
                 </DockPanel>
             </TabItem>
-            <TabItem Header="Статистика">
-                Разрабатываться не будет
-            </TabItem>
+            <TabItem Header="Статистика" Content="Разрабатываться не будет"/>
+
         </TabControl>
     </DockPanel>
 </Window>
