@@ -1,7 +1,7 @@
 ﻿using CodePasswordDLL;
 using System.Collections.Generic;
 
-namespace WpfMailSender
+namespace WpfMailSender.Model
 {
     public static class VariablesClass
     {

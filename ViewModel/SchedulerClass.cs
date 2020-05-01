@@ -1,11 +1,12 @@
 ﻿using EmailSend;
 using System;
-using System.Linq;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Threading;
+using WpfMailSender.Model;
 
-namespace WpfMailSender
+namespace WpfMailSender.ViewModel
 {
     /// <summary>
     /// Класс-планировщик, который создает расписание, следит за его выполнением и напоминает о событиях
@@ -16,7 +17,7 @@ namespace WpfMailSender
         DispatcherTimer timer = new DispatcherTimer();
         EmailSendService emailSender;
         DateTime dtSend;
-        IQueryable<Email> emails;
+        ObservableCollection<Email> emails;
         TextRange text;
         string subject;
 
@@ -44,7 +45,7 @@ namespace WpfMailSender
         /// <param name="emails">Список получателей</param>
         /// <param name="subject">Тема письма</param>
         /// <param name="textRange">Содержание письма</param>
-        public void SendEmails(DateTime dtSend, EmailSendService emailSender, IQueryable<Email> emails, string subject, TextRange textRange)
+        public void SendEmails(DateTime dtSend, EmailSendService emailSender, ObservableCollection<Email> emails, string subject, TextRange textRange)
         {
             this.emailSender = emailSender;
             this.dtSend = dtSend;
