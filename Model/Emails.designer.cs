@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WpfMailSender
+namespace WpfMailSender.Model
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;

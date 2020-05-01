@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfMailSender.Model;
+using WpfMailSender.ViewModel;
 
 namespace WpfMailSender
 {
@@ -27,15 +29,6 @@ namespace WpfMailSender
             cbSenderSelect.ItemsSource = VariablesClass.Senders;
             cbSenderSelect.DisplayMemberPath = "Key";
             cbSenderSelect.SelectedValuePath = "Value";
-            DBClass db = new DBClass();
-            dgRecievers.ItemsSource = db.Emails;
-            cbServerSelect.ItemsSource = db.Servers;
-            cbServerSelect.DisplayMemberPath = "Name";
-            cbServerSelect.SelectedValuePath = "Port";
-            STB.Items = db.Servers;
-            STB.DisplayMemberPath = "Name";
-            STB.SelectedValuePath = "Port";
-            STB.LblSelectText = "Выбрать сервер";
         }
 
         private void Send_Click(object sender, RoutedEventArgs e)
@@ -45,7 +38,8 @@ namespace WpfMailSender
                 using (var emailSendService = new EmailSendService(cbServerSelect.Text, Int32.Parse(cbServerSelect.SelectedValue.ToString()), cbSenderSelect.Text, cbSenderSelect.Text, pbPassword.Password))
                 {
                     TextRange text = new TextRange(MessageBody.Document.ContentStart, MessageBody.Document.ContentEnd);
-                    foreach (Email email in (IQueryable<Email>)dgRecievers.ItemsSource)
+                    var locator = (ViewModelLocator)FindResource("Locator");
+                    foreach (Email email in locator.Main.Emails)
                     {
                         emailSendService.Send(email.Value, Subject.Text, text.Text);
                     } 
@@ -74,7 +68,8 @@ namespace WpfMailSender
                 return;
             }
             EmailSendService emailSender = new EmailSendService(cbServerSelect.Text, Int32.Parse(cbServerSelect.SelectedValue.ToString()), cbSenderSelect.Text, cbSenderSelect.Text, pbPassword.Password);
-            sc.SendEmails(dtSendDateTime, emailSender, (IQueryable<Email>)dgRecievers.ItemsSource, Subject.Text, new TextRange(MessageBody.Document.ContentStart, MessageBody.Document.ContentEnd));
+            var locator = (ViewModelLocator)FindResource("Locator");
+            sc.SendEmails(dtSendDateTime, emailSender, locator.Main.Emails, Subject.Text, new TextRange(MessageBody.Document.ContentStart, MessageBody.Document.ContentEnd));
 
         }
 
