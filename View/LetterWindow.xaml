@@ -1,0 +1,21 @@
+﻿<Window x:Class="WpfMailSender.View.LetterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfMailSender.View"
+        mc:Ignorable="d"
+        Title="Edit Letter" Height="450" Width="800">
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top">
+            <Label Width="100" Content="Время отправки:" Foreground="Black" VerticalAlignment="Center" Margin="5" DockPanel.Dock="Left"/>
+            <TextBox Text="{Binding SendTime}" Height="25" Margin="5"/>
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Top">
+            <Label Width="100" Content="Тема:" Foreground="Black" VerticalAlignment="Center" Margin="5"/>
+            <TextBox Text="{Binding Subject}" Height="25" Margin="5"/>
+        </DockPanel>
+        <Label Content="Содержание сообщения:" DockPanel.Dock="Top" Foreground="Black"/>
+        <RichTextBox  DataContext="{Binding Message}" DockPanel.Dock="Top" Margin="5"/>
+    </DockPanel>
+</Window>

@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSend", "..\EmailSend\E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelectToolBarControl", "..\SelectToolBarControl\SelectToolBarControl.csproj", "{01015E68-8D4C-41D1-8486-A68FF7A74259}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodePasswordDLLTests", "..\CodePasswordDLLTests\CodePasswordDLLTests.csproj", "{330B4E9C-39F9-450C-9E54-C36BCB7ADD70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfMailSenderTests", "..\WpfMailSenderTests\WpfMailSenderTests.csproj", "{C3CA73D5-70CC-4E76-8247-ED63D08F45FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{01015E68-8D4C-41D1-8486-A68FF7A74259}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01015E68-8D4C-41D1-8486-A68FF7A74259}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01015E68-8D4C-41D1-8486-A68FF7A74259}.Release|Any CPU.Build.0 = Release|Any CPU
+		{330B4E9C-39F9-450C-9E54-C36BCB7ADD70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{330B4E9C-39F9-450C-9E54-C36BCB7ADD70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{330B4E9C-39F9-450C-9E54-C36BCB7ADD70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{330B4E9C-39F9-450C-9E54-C36BCB7ADD70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3CA73D5-70CC-4E76-8247-ED63D08F45FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3CA73D5-70CC-4E76-8247-ED63D08F45FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3CA73D5-70CC-4E76-8247-ED63D08F45FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3CA73D5-70CC-4E76-8247-ED63D08F45FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

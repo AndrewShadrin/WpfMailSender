@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfMailSender.Model;
+using WpfMailSender.View;
 using WpfMailSender.ViewModel;
 
 namespace WpfMailSender
@@ -83,5 +84,16 @@ namespace WpfMailSender
             tabControl.SelectedIndex = 1;
         }
 
+        private void btnAddLetter_Click(object sender, RoutedEventArgs e)
+        {
+            var locator = (ViewModelLocator)FindResource("Locator");
+            locator.Main.Letters.Add(new Letter() { SendTime = DateTime.Now, Subject = "Hellow it's me", Message = "Hellow, world!" });
+        }
+
+        private void lvLetters_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            LetterWindow letterWindow = new LetterWindow((Letter)lvLetters.SelectedItem);
+            letterWindow.Show();
+        }
     }
 }
