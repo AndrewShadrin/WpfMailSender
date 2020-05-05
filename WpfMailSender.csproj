@@ -111,8 +111,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Emails.dbml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\ILetter.cs" />
+    <Compile Include="Model\Letter.cs" />
     <Compile Include="View\EmailInfoView.xaml.cs">
       <DependentUpon>EmailInfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LetterWindow.xaml.cs">
+      <DependentUpon>LetterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ListLettersElementView.xaml.cs">
+      <DependentUpon>ListLettersElementView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MessageWindow.xaml.cs">
       <DependentUpon>MessageWindow.xaml</DependentUpon>
@@ -127,6 +135,14 @@
       <DependentUpon>SaveEmailView.xaml</DependentUpon>
     </Compile>
     <Page Include="View\EmailInfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LetterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ListLettersElementView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

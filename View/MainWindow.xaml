@@ -94,7 +94,12 @@
                 </DockPanel>
             </TabItem>
             <TabItem Header="Планировщик">
-                <DockPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <DockPanel>
                     <Calendar x:Name="cldSchedulDateTimes" HorizontalAlignment="Left" VerticalAlignment="Top" DockPanel.Dock="Top"/>
                     <xctk:TimePicker x:Name="tbTimePicker" DockPanel.Dock="Top" Width="179" HorizontalAlignment="Left"/>
                     <DockPanel Height="25" Grid.Column="0" Grid.Row="1" Margin="3" HorizontalAlignment="Left" VerticalAlignment="Top" >
@@ -107,6 +112,19 @@
                         </Button>
                     </DockPanel>
                 </DockPanel>
+                    <DockPanel Grid.Column="1" >
+                        <Button x:Name="btnAddLetter" Content="Добавить письмо" DockPanel.Dock="Top" Click="btnAddLetter_Click"/>
+                        <ListView x:Name="lvLetters" ItemsSource="{Binding Letters}" MouseDoubleClick="lvLetters_MouseDoubleClick">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Send time" DisplayMemberBinding="{Binding SendTime}"/>
+                                    <GridViewColumn Header="Subject" DisplayMemberBinding="{Binding Subject}"/>
+                                    <GridViewColumn Header="Message" DisplayMemberBinding="{Binding Message}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </DockPanel>
+                </Grid>
             </TabItem>
             <TabItem Header="Редактор писем">
                 <DockPanel>
@@ -118,7 +136,6 @@
                 </DockPanel>
             </TabItem>
             <TabItem Header="Статистика" Content="Разрабатываться не будет"/>
-
         </TabControl>
     </DockPanel>
 </Window>

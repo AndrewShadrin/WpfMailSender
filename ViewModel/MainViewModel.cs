@@ -31,6 +31,7 @@ namespace WpfMailSender.ViewModel
         ObservableCollection<Servers> servers;
         Email emailInfo;
         string searchName;
+        ObservableCollection<Letter> letters;
 
         #endregion
 
@@ -66,7 +67,6 @@ namespace WpfMailSender.ViewModel
                 RaisePropertyChanged(nameof(Servers));
             }
         }
-
         public string SearchName 
         {
             get
@@ -79,6 +79,7 @@ namespace WpfMailSender.ViewModel
                 GetEmailsFiltered();
             }
         }
+        public ObservableCollection<Letter> Letters { get => letters; set => letters = value; }
 
         #endregion
 
@@ -103,6 +104,7 @@ namespace WpfMailSender.ViewModel
             SaveCommand = new RelayCommand(SaveEmail);
             SendEmailsCommand = new RelayCommand(SendEmails);
             emailInfo = new Email();
+            letters = new ObservableCollection<Letter>();
         }
 
         void GetEmails()
@@ -138,14 +140,9 @@ namespace WpfMailSender.ViewModel
         {
             try
             {
-                //using (var emailSendService = new EmailSendService(cbServerSelect.Text, Int32.Parse(cbServerSelect.SelectedValue.ToString()), cbSenderSelect.Text, cbSenderSelect.Text, pbPassword.Password))
-                //{
-                //    TextRange text = new TextRange(MessageBody.Document.ContentStart, MessageBody.Document.ContentEnd);
-                //    foreach (Email email in Emails)
-                //    {
-                //        emailSendService.Send(email.Value, Subject.Text, text.Text);
-                //    }
-                //}
+                SchedulerClass sc = new SchedulerClass();
+                //EmailSendService emailSender = new EmailSendService(cbServerSelect.Text, Int32.Parse(cbServerSelect.SelectedValue.ToString()), cbSenderSelect.Text, cbSenderSelect.Text, pbPassword.Password);
+                //sc.SendEmails(new )
                 MessageWindow windowMessage = new MessageWindow("Все отлично!");
                 windowMessage.Show();
             }

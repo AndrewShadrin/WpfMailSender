@@ -1,6 +1,7 @@
 ﻿using EmailSend;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Threading;
@@ -12,7 +13,7 @@ namespace WpfMailSender.ViewModel
     /// Класс-планировщик, который создает расписание, следит за его выполнением и напоминает о событиях
     /// Также помогает автоматизировать рассылку писем в соответствии с расписанием
     /// </summary>
-    class SchedulerClass
+    public class SchedulerClass
     {
         DispatcherTimer timer = new DispatcherTimer();
         EmailSendService emailSender;
@@ -20,6 +21,8 @@ namespace WpfMailSender.ViewModel
         ObservableCollection<Email> emails;
         TextRange text;
         string subject;
+
+        ObservableCollection<ILetter> letters;
 
         /// <summary>
         /// Метод, который превращает строку из текстбокса tbTimePicker в TimeSpan
@@ -56,7 +59,16 @@ namespace WpfMailSender.ViewModel
             timer.Interval = new TimeSpan(0, 0, 1);
             timer.Start();
         }
-        
+
+        public void SendEmails(EmailSendService emailSender, ObservableCollection<ILetter> letters)
+        {
+            this.letters = letters;
+            this.emailSender = emailSender;
+            timer.Tick += TimerTickLetter;
+            timer.Interval = new TimeSpan(0, 0, 1);
+            timer.Start();
+        }
+
         private void Timer_Tick(object sender, EventArgs e)
         {
             if (dtSend.ToShortTimeString() == DateTime.Now.ToShortTimeString())
@@ -68,6 +80,25 @@ namespace WpfMailSender.ViewModel
                 timer.Stop();
                 MessageBox.Show("Письма отправлены.");
             }
+        }
+
+        private void TimerTickLetter(object sender, EventArgs e)
+        {
+            foreach (ILetter letter in letters)
+            {
+                if (letter.SendTime <= DateTime.Now)
+                {
+                    emailSender.Send(letter.Reciever.Value, letter.Subject, letter.Message);
+                }
+                timer.Stop();
+                MessageBox.Show("Письма отправлены.");
+            }
+            foreach (ILetter item in letters.Where(lte => lte.SendTime <= DateTime.Now))
+            {
+                letters.Remove(item);
+            }
+            timer.Stop();
+            MessageBox.Show("Письма отправлены.");
         }
     }
 
