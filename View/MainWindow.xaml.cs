@@ -32,27 +32,6 @@ namespace WpfMailSender
             cbSenderSelect.SelectedValuePath = "Value";
         }
 
-        private void Send_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                using (var emailSendService = new EmailSendService(cbServerSelect.Text, Int32.Parse(cbServerSelect.SelectedValue.ToString()), cbSenderSelect.Text, cbSenderSelect.Text, pbPassword.Password))
-                {
-                    TextRange text = new TextRange(MessageBody.Document.ContentStart, MessageBody.Document.ContentEnd);
-                    var locator = (ViewModelLocator)FindResource("Locator");
-                    foreach (Email email in locator.Main.Emails)
-                    {
-                        emailSendService.Send(email.Value, Subject.Text, text.Text);
-                    } 
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageWindow windowMessage = new MessageWindow(ex.Message);
-                windowMessage.Show();
-            }
-        }
-
         private void btnSend_Click(object sender, RoutedEventArgs e)
         {
             SchedulerClass sc = new SchedulerClass();
@@ -70,7 +49,7 @@ namespace WpfMailSender
             }
             EmailSendService emailSender = new EmailSendService(cbServerSelect.Text, Int32.Parse(cbServerSelect.SelectedValue.ToString()), cbSenderSelect.Text, cbSenderSelect.Text, pbPassword.Password);
             var locator = (ViewModelLocator)FindResource("Locator");
-            sc.SendEmails(dtSendDateTime, emailSender, locator.Main.Emails, Subject.Text, new TextRange(MessageBody.Document.ContentStart, MessageBody.Document.ContentEnd));
+            sc.SendEmails(dtSendDateTime, emailSender, locator.Main.Emails, Subject.Text, MessageBody.Text);
 
         }
 
@@ -87,7 +66,7 @@ namespace WpfMailSender
         private void btnAddLetter_Click(object sender, RoutedEventArgs e)
         {
             var locator = (ViewModelLocator)FindResource("Locator");
-            locator.Main.Letters.Add(new Letter() { SendTime = DateTime.Now, Subject = "Hellow it's me", Message = "Hellow, world!" });
+            locator.Main.AddLetter();
         }
 
         private void lvLetters_MouseDoubleClick(object sender, MouseButtonEventArgs e)

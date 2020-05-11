@@ -111,6 +111,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Emails.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Model\MailStruct.cs" />
     <Compile Include="ViewModel\ILetter.cs" />
     <Compile Include="Model\Letter.cs" />
     <Compile Include="View\EmailInfoView.xaml.cs">

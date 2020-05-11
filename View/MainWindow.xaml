@@ -9,6 +9,7 @@
         xmlns:Views="clr-namespace:WpfMailSender.View"
         x:Class="WpfMailSender.MainWindow"
         mc:Ignorable="d"
+        Language="Ru"
         DataContext="{Binding Main, Source={StaticResource Locator}}"
         Icon="../Images/Letter.png"
         Title="Mail sender" Height="450" Width="800">
@@ -25,7 +26,7 @@
                     <ToolBarTray Height="65" DockPanel.Dock="Top">
                         <ToolBar x:Name="tbSender" Height="30" Width="500">
                             <Label x:Name="lSender" Height="25" Width="130" VerticalContentAlignment="Center" Content="Выбрать отправителя"/>
-                            <ComboBox x:Name="cbSenderSelect" Width="269" Height="25" ToolTip="Выбрать email отправителя"/>
+                            <ComboBox x:Name="cbSenderSelect" Width="269" Height="25" ToolTip="Выбрать email отправителя" SelectedItem="{Binding Sender}"/>
                             <Button x:Name="btnAddSender" ToolTip="Добавить" Width="25" Height="25" MinWidth="24" MinHeight="25">
                                 <Image Source="../Images/add.png"/>
                             </Button>
@@ -42,7 +43,7 @@
                         <ToolBar x:Name="tbServer" Height="30" Width="500">
                             <Label x:Name="lServer" Height="25" Width="130" VerticalContentAlignment="Center" Content="Выбрать сервер"/>
                             <ComboBox x:Name="cbServerSelect" Width="269" Height="25" ToolTip="Выбрать сервер отправителя" 
-                                      ItemsSource="{Binding Servers}" DisplayMemberPath="Name" SelectedValuePath="Port"/>
+                                      ItemsSource="{Binding Servers}" DisplayMemberPath="Name" SelectedValuePath="Port" SelectedItem="{Binding Server}"/>
                             <Button x:Name="btnAddServer" ToolTip="Добавить" Width="25" Height="25" MinWidth="24" MinHeight="25">
                                 <Image Source="../Images/add.png"/>
                             </Button>
@@ -104,7 +105,7 @@
                     <xctk:TimePicker x:Name="tbTimePicker" DockPanel.Dock="Top" Width="179" HorizontalAlignment="Left"/>
                     <DockPanel Height="25" Grid.Column="0" Grid.Row="1" Margin="3" HorizontalAlignment="Left" VerticalAlignment="Top" >
                         <Button x:Name="btnSend" Content="Отправить запланировано" Width="150" Click="btnSend_Click"/>
-                        <Button x:Name="btnSendAtOnce" Click="Send_Click" Width="150">
+                        <Button x:Name="btnSendAtOnce" Command="{Binding SendEmailsCommand}" Width="150">
                             <StackPanel Orientation="Horizontal" Height="23">
                                 <Image Source="../Images/Letter.png" Width="23"/>
                                 <TextBlock VerticalAlignment="Center" Height="20" Margin="3,1,0,0">Отправить сразу</TextBlock>
@@ -117,9 +118,9 @@
                         <ListView x:Name="lvLetters" ItemsSource="{Binding Letters}" MouseDoubleClick="lvLetters_MouseDoubleClick">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="Send time" DisplayMemberBinding="{Binding SendTime}"/>
-                                    <GridViewColumn Header="Subject" DisplayMemberBinding="{Binding Subject}"/>
-                                    <GridViewColumn Header="Message" DisplayMemberBinding="{Binding Message}"/>
+                                    <GridViewColumn Header="Время отправки" DisplayMemberBinding="{Binding SendTime}" Width="100"/>
+                                    <GridViewColumn Header="Тема письма" DisplayMemberBinding="{Binding Subject}" Width="120"/>
+                                    <GridViewColumn Header="Сообщение" DisplayMemberBinding="{Binding Message}" Width="200"/>
                                 </GridView>
                             </ListView.View>
                         </ListView>
@@ -130,9 +131,9 @@
                 <DockPanel>
                     <DockPanel DockPanel.Dock="Top" Margin="2">
                         <Label Margin="0,0,5,0" Content="Тема:"/>
-                        <TextBox x:Name="Subject"/>
+                        <TextBox x:Name="Subject" Text="{Binding Subject}"/>
                     </DockPanel>
-                    <RichTextBox x:Name="MessageBody" Block.LineHeight="10" Margin="2"/>
+                    <TextBox x:Name="MessageBody" Block.LineHeight="10" Margin="2" AcceptsReturn="True" Text="{Binding MessageText}"/>
                 </DockPanel>
             </TabItem>
             <TabItem Header="Статистика" Content="Разрабатываться не будет"/>

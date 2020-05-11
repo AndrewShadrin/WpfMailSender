@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfMailSender.View"
         mc:Ignorable="d"
-        Title="Edit Letter" Height="450" Width="800">
+        Language="Ru"
+        Title="Редактирование письма" Height="450" Width="800">
     <DockPanel>
         <DockPanel DockPanel.Dock="Top">
             <Label Width="100" Content="Время отправки:" Foreground="Black" VerticalAlignment="Center" Margin="5" DockPanel.Dock="Left"/>
@@ -16,6 +17,6 @@
             <TextBox Text="{Binding Subject}" Height="25" Margin="5"/>
         </DockPanel>
         <Label Content="Содержание сообщения:" DockPanel.Dock="Top" Foreground="Black"/>
-        <RichTextBox  DataContext="{Binding Message}" DockPanel.Dock="Top" Margin="5"/>
+        <TextBox  Text="{Binding Message}" DockPanel.Dock="Top" Margin="5" AcceptsReturn="True"/>
     </DockPanel>
 </Window>
