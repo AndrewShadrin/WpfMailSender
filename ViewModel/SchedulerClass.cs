@@ -19,7 +19,7 @@ namespace WpfMailSender.ViewModel
         EmailSendService emailSender;
         DateTime dtSend;
         ObservableCollection<Email> emails;
-        TextRange text;
+        string text;
         string subject;
 
         ObservableCollection<ILetter> letters;
@@ -48,7 +48,7 @@ namespace WpfMailSender.ViewModel
         /// <param name="emails">Список получателей</param>
         /// <param name="subject">Тема письма</param>
         /// <param name="textRange">Содержание письма</param>
-        public void SendEmails(DateTime dtSend, EmailSendService emailSender, ObservableCollection<Email> emails, string subject, TextRange textRange)
+        public void SendEmails(DateTime dtSend, EmailSendService emailSender, ObservableCollection<Email> emails, string subject, string textRange)
         {
             this.emailSender = emailSender;
             this.dtSend = dtSend;
@@ -75,7 +75,7 @@ namespace WpfMailSender.ViewModel
             {
                 foreach (Email email in emails)
                 {
-                    emailSender.Send(email.Value, subject, text.Text);
+                    emailSender.Send(email.Value, subject, text);
                 }
                 timer.Stop();
                 MessageBox.Show("Письма отправлены.");
