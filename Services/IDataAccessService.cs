@@ -15,8 +15,12 @@ namespace WpfMailSender.Services
         /// Возвращает список серверов для отправки
         /// </summary>
         /// <returns></returns>
-        ObservableCollection<Servers> GetServers();
+        ObservableCollection<Server> GetServers();
 
-        int CreateEmail(Email email);
+        int AddEmail(Email email);
+
+        int UpdateEmail(Email email);
+
+        int DeleteEmail(Email email);
     }
 }

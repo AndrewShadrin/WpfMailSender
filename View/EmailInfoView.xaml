@@ -7,7 +7,7 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:mvvm="http://www.galasoft.ch/mvvmlight"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             d:DesignHeight="250" d:DesignWidth="800"
              DataContext="{Binding Main, Source={StaticResource Locator}}" Height="Auto" Width="Auto">
     <Grid>
         <Grid.RowDefinitions>
@@ -25,21 +25,29 @@
 
         <TextBlock TextWrapping="Wrap"
                 	TextAlignment="Center" Text="Получатели сообщений" FontWeight="Bold"/>
-        <Button x:Name="btnloadallemails" Content="Отобразить данные"
-            	Grid.Row="3"
-            	FontWeight="Bold"
-            	Width="140"
-            	Command="{Binding ReadAllCommand}"/>
+        <DockPanel Grid.Row="1">
+            <TextBlock HorizontalAlignment="Left" Margin="10,7,10,0"
+               	TextWrapping="Wrap" Text="Поиск по имени:" VerticalAlignment="Top"
+               	/>
+            <TextBox Height="30" 
+             	TextWrapping="Wrap"  Text="{Binding SearchName, UpdateSourceTrigger=PropertyChanged}"
+             	VerticalAlignment="Top"/>
+        </DockPanel>
         <DataGrid x:Name="dgEmails" Grid.Row="2" ItemsSource="{Binding Emails}"
              	ColumnWidth="*"  Margin="0,10,0,28" RenderTransformOrigin="0.5,0.5"
                	IsReadOnly="True" >
         </DataGrid>
-        <TextBlock HorizontalAlignment="Left" Margin="10,7,0,0" Grid.Row="1"
-               	TextWrapping="Wrap" Text="Поиск по имени:" VerticalAlignment="Top"
-               	Width="231"/>
-        <TextBox HorizontalAlignment="Left" Height="30" Margin="262,7,0,0"
-             	Grid.Row="1" TextWrapping="Wrap"  Text="{Binding SearchName, UpdateSourceTrigger=PropertyChanged}"
-             	VerticalAlignment="Top" Width="310">
-        </TextBox>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Height="25">
+            <Button x:Name="btnloadallemails" Content="Отобразить данные"
+                Margin="2"
+            	FontWeight="Bold"
+            	Width="150"
+            	Command="{Binding ReadAllCommand}"/>
+            <Button x:Name="btnExportReport" Content="Вывести данные в отчет"
+            	Margin="2"
+                FontWeight="Bold"
+            	Width="150"
+            	Command="{Binding ExportReportCommand}"/>
+        </StackPanel>
     </Grid>
 </UserControl>
