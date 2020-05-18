@@ -1,12 +1,15 @@
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
 using EmailSend;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Threading;
-using System.Windows.Documents;
 using WpfMailSender.Model;
 using WpfMailSender.Services;
 
@@ -30,21 +33,23 @@ namespace WpfMailSender.ViewModel
 
         IDataAccessService serviceProxy;
         ObservableCollection<Email> emails;
-        ObservableCollection<Servers> servers;
+        ObservableCollection<Server> servers;
         Email emailInfo;
         string searchName;
         ObservableCollection<Letter> letters;
-        Servers server;
+        Server server;
         string messageText;
         string subject;
+        private KeyValuePair<string, string> sender;
 
         #endregion
 
         #region Properties
 
-        public RelayCommand ReadAllCommand { get; set; }
-        public RelayCommand SaveCommand { get; set; }
-        public RelayCommand SendEmailsCommand { get; set; }
+        public RelayCommand ReadAllCommand { get; private set; }
+        public RelayCommand SaveCommand { get; private set; }
+        public RelayCommand SendEmailsCommand { get; private set; }
+        public RelayCommand ExportReportCommand { get; private set; }
         public Email EmailInfo
         {
             get { return emailInfo; }
@@ -63,7 +68,7 @@ namespace WpfMailSender.ViewModel
                 RaisePropertyChanged(nameof(Emails));
             }
         }
-        public ObservableCollection<Servers> Servers
+        public ObservableCollection<Server> Servers
         {
             get => servers;
             set
@@ -85,38 +90,130 @@ namespace WpfMailSender.ViewModel
             }
         }
         public ObservableCollection<Letter> Letters { get => letters; set => letters = value; }
-
-        public Servers Server { get => server; set => server = value; }
+        public Server Server { get => server; set => server = value; }
         public string MessageText { get => messageText; set => messageText = value; }
         public string Subject { get => subject; set => subject = value; }
-
-        private KeyValuePair<string, string> sender;
-
         public KeyValuePair<string, string> Sender
         {
             get { return sender; }
             set { sender = value; }
         }
 
-
         #endregion
 
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public MainViewModel(IDataAccessService servProxy)
+        public MainViewModel(IDataAccessService accessService)
         {
-            serviceProxy = servProxy;
+            serviceProxy = accessService;
             emails = new ObservableCollection<Email>();
-            ReadAllCommand = new RelayCommand(GetEmails);
-            servers = new ObservableCollection<Servers>();
+            servers = new ObservableCollection<Server>();
+            letters = new ObservableCollection<Letter>();
+            emailInfo = new Email();
+            server = new Server();
             servers = serviceProxy.GetServers();
+            ReadAllCommand = new RelayCommand(GetEmails);
             SaveCommand = new RelayCommand(SaveEmail);
             SendEmailsCommand = new RelayCommand(SendEmails);
-            emailInfo = new Email();
-            letters = new ObservableCollection<Letter>();
-            server = new Servers();
-            sender = VariablesClass.Senders.ElementAt(0);
+            ExportReportCommand = new RelayCommand(ExportReport);
+        }
+
+        private void ExportReport()
+        {
+            using (WordprocessingDocument doc
+                = WordprocessingDocument.Create(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "Report.docx"), WordprocessingDocumentType.Document))
+            {
+                // Add a main document part. 
+                MainDocumentPart mainPart = doc.AddMainDocumentPart();
+
+                // Create the document structure and add some text.
+                mainPart.Document = new Document();
+
+                Body body = mainPart.Document.AppendChild(new Body());
+                Paragraph para = body.AppendChild(new Paragraph());
+                Run run = para.AppendChild(new Run());
+                run.AppendChild(new Text("Список получателей почтовой рассылки"));
+
+                // Create an empty table.
+                Table table = new Table();
+
+                // Create a TableProperties object and specify its border information.
+                TableProperties tblProp = new TableProperties(
+                    new TableBorders(
+                        new TopBorder()
+                        {
+                            Val = new EnumValue<BorderValues>(AppConfigClass.BorderValuesType),
+                            Size = AppConfigClass.BorderSize
+                        },
+                        new BottomBorder()
+                        {
+                            Val = new EnumValue<BorderValues>(AppConfigClass.BorderValuesType),
+                            Size = AppConfigClass.BorderSize
+                        },
+                        new LeftBorder()
+                        {
+                            Val = new EnumValue<BorderValues>(AppConfigClass.BorderValuesType),
+                            Size = AppConfigClass.BorderSize
+                        },
+                        new RightBorder()
+                        {
+                            Val = new EnumValue<BorderValues>(AppConfigClass.BorderValuesType),
+                            Size = AppConfigClass.BorderSize
+                        },
+                        new InsideHorizontalBorder()
+                        {
+                            Val = new EnumValue<BorderValues>(AppConfigClass.BorderValuesType),
+                            Size = AppConfigClass.BorderSize
+                        },
+                        new InsideVerticalBorder()
+                        {
+                            Val = new EnumValue<BorderValues>(AppConfigClass.BorderValuesType),
+                            Size = AppConfigClass.BorderSize
+                        }
+                    )
+                );
+
+                // Append the TableProperties object to the empty table.
+                table.AppendChild<TableProperties>(tblProp);
+
+                AddRowDataToTable(table, "Имя получателя", "Email получателя");
+
+                foreach (Email email in emails)
+                {
+                    AddRowDataToTable(table, email.Name, email.Value);
+                }
+
+                // Append the table to the document.
+                doc.MainDocumentPart.Document.Body.Append(table);
+            }
+        }
+
+        private static void AddRowDataToTable(Table table, string text1cell, string text2cell)
+        {
+            // Create a row.
+            TableRow tr = new TableRow();
+
+            // Create a cell.
+            TableCell tc1 = new TableCell();
+
+            // Specify the table cell content.
+            tc1.Append(new Paragraph(new Run(new Text(text1cell))));
+
+            // Append the table cell to the table row.
+            tr.Append(tc1);
+
+            // Create a second table cell
+            TableCell tc2 = new TableCell();
+
+            // Specify the table cell content.
+            tc2.Append(new Paragraph(new Run(new Text(text2cell))));
+
+            // Append the table cell to the table row.
+            tr.Append(tc2);
+
+            // Append the table row to the table.
+            table.Append(tr);
         }
 
         internal void AddLetter()
@@ -144,7 +241,7 @@ namespace WpfMailSender.ViewModel
 
         void SaveEmail()
         {
-            EmailInfo.Id = serviceProxy.CreateEmail(emailInfo);
+            EmailInfo.Id = serviceProxy.AddEmail(emailInfo);
             if (EmailInfo.Id != 0)
             {
                 Emails.Add(EmailInfo);
